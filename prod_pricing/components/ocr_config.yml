@@ -1,0 +1,42 @@
+Global:
+  use_gpu: true
+  pretrained_model: /product-pricing/weights/ocr_digits
+  load_static_weights: False
+  checkpoints:
+  use_visualdl: False
+  infer_img: /product-pricing/data/example.jpg
+  character_dict_path: /product-pricing/prod_pricing/components/price_dict.txt
+  character_type: ch
+  max_text_length: 8
+  infer_mode: True
+  use_space_char: True
+  save_res_path: /product-pricing/data/predict.txt
+
+Architecture:
+  model_type: rec
+  algorithm: CRNN
+  Transform:
+  Backbone:
+    name: ResNet
+    layers: 34
+  Neck:
+    name: SequenceEncoder
+    encoder_type: rnn
+    hidden_size: 256
+  Head:
+    name: CTCHead
+    fc_decay: 0.00004
+
+PostProcess:
+  name: CTCLabelDecode
+
+Eval:
+  dataset:
+    transforms:
+      # - DecodeImage: # load image
+      #     img_mode: BGR
+      #     channel_first: False
+      - RecResizeImg:
+          image_shape: [3, 32, 96]
+      - KeepKeys:
+          keep_keys: ['image'] # dataloader will return list in this order

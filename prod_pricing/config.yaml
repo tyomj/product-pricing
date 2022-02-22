@@ -1,0 +1,14 @@
+det_path: /product-pricing/weights/price_yolov5x.pt
+loc_path: /product-pricing/weights/price_segmentation.ckpt
+rec_conf_path: /product-pricing/prod_pricing/components/ocr_config.yml
+emb_model_path: /product-pricing/weights/epoch_140.pth
+gnn_model_path: /product-pricing/weights/matching.pth
+nms_conf: 0.5
+nms_iou: 0.6
+device: cuda:0
+path2images: /product-pricing/data/images/test/
+result_file: /product-pricing/data/price-predictions.csv
+products_file: /product-pricing/data/results.csv
+prod_emb_file: /product-pricing/data/embeddings.pkl
+annotations_path: /product-pricing/data/annotations.csv
+predictions_path: /product-pricing/data/predictions.csv
